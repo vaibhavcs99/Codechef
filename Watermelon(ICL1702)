@@ -1,0 +1,67 @@
+#include <iostream>
+#include <stdio.h>
+#include <array>
+using namespace std;
+int print(int a[][50],int m,int n);
+int copya(int a[][50],int c[][50],int m,int n);
+int main(){
+int t;
+cin>>t;
+while(t--){
+int m,n,w,p,x,y,a[50][50]={0},c[50][50]={0};
+cin>>m>>n>>w>>p>>x>>y;
+a[0][0]=4;
+a[m-1][n-1]=y;
+copya(a,c,m,n);
+while(w){
+    for(int i=0;i<m;i++)    //burst
+    {for(int j=0;j<n;j++)
+        {   if(a[i][j]!=0)
+            {c[i-1][j-1]+=a[i][j];
+            c[i-1][j]+=a[i][j];
+            c[i-1][j+1]+=a[i][j];
+            c[i][j-1]+=a[i][j];
+            c[i][j+1]+=a[i][j];
+            c[i+1][j-1]+=a[i][j];
+            c[i+1][j]+=a[i][j];
+            c[i+1][j+1]+=a[i][j];}
+        }
+    } copya(c,a,m,n); //print(c,m,n); print(a,m,n);
+    w--;
+    }
+    for(int i=0;i<m;i++)    //pick up
+    {
+        for(int j=0;j<n;j++)
+        {
+            c[i][j]%=p;
+        }
+    }
+
+    print(c,m,n);
+    printf("\n");
+}
+
+    return 0;
+}
+int print(int a[][50],int m,int n)
+{
+     for(int i=0;i<m;i++)    //print
+    {
+        for(int j=0;j<n;j++)
+        {
+            cout<<a[i][j]<<" ";
+        }   cout<<"\n";
+    }
+return 0;
+}
+int copya(int a[][50],int c[][50],int m,int n)
+{
+     for(int i=0;i<m;i++)    //print
+    {
+        for(int j=0;j<n;j++)
+        {
+            c[i][j]=a[i][j];
+        }
+    }
+return 0;
+}
